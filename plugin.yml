@@ -1,0 +1,14 @@
+name: SkitChat
+main: me.chaseoes.skitchat.SkitChat
+version: 1.0
+description: Add chat friends and ignore players!
+author: chaseoes
+website: http://a1chase.com
+commands:
+  chat:
+    description: The main command for FriendChatter.
+    usage: /chat <add|list|remove|ignore|ignorelist|unignore|pm|help|reload> [player]
+  pm:
+    description: Private message a player.
+    usage: /pm <player>
+    aliases: [msg,tell,message,t,whisper,m]

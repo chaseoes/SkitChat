@@ -1,0 +1,6 @@
+settings:
+    friendformat: '%playername% &2> &a%message%'
+    pmformat: '&8(PM %fromplayer% -> %toplayer%): &7%message%'
+    spyformat: '&8(SPY %fromplayer% -> %toplayer%): &7%message%'
+    logchatmessages: false
+    logpms: true
