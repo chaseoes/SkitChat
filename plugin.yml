@@ -1,9 +1,11 @@
 name: SkitChat
 main: me.chaseoes.skitchat.SkitChat
-version: 1.0
-description: Add chat friends and ignore players!
+version: 0.4
+description: Add chat friends, ignore players, and more!
 author: chaseoes
 website: http://a1chase.com
+depend: [Vault]
+loadbefore: [Essentials]
 commands:
   chat:
     description: The main command for FriendChatter.
@@ -12,3 +14,28 @@ commands:
     description: Private message a player.
     usage: /pm <player>
     aliases: [msg,tell,message,t,whisper,m]
+  friend:
+    description: Add a player as a friend.
+    usage: /friend <player>
+  unfriend:
+    description: Remove a friend from your friends list.
+    usage: /unfriend <player>
+  ignore:
+    description: Ignore a player.
+    usage: /ignore <player>
+  unignore:
+    description: Remove an ignored player from your friends list.
+    usage: /unignore <player>
+  me:
+    description: You!
+    usage: /me <message>
+  colors:
+    description: List all default color codes.
+    usage: /me <message>
+permissions:
+  skitchat.override:
+    description: Override the world!
+    default: false
+  skitchat.spamoverride:
+    description: Override spam-related features!
+    default: false

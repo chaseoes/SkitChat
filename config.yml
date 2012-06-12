@@ -1,6 +1,33 @@
 settings:
-    friendformat: '%playername% &2> &a%message%'
-    pmformat: '&8(PM %fromplayer% -> %toplayer%): &7%message%'
-    spyformat: '&8(SPY %fromplayer% -> %toplayer%): &7%message%'
-    logchatmessages: false
-    logpms: true
+  logchatmessages: true
+  logpms: true
+  forcemove: true
+  nodupemessages: true
+  min-playercount: 5
+  chatdelay: 5
+  rejointime: 15
+chat:
+  globalformat: '%p&7%dn &2> &8%m'
+  global-join: '&e%dn joined the game.'
+  global-leave: '&e%dn left the game.'
+  global-tabcolor: '&7%dn'
+  pm-from: '&8(FROM %n): &7%m'
+  pm-to: '&8(TO %n): &7%m'
+  spyformat: '&8(MSG %from -> %to): &7%m'
+  meformat: '%p%dn &f* %msg'
+  friendcolor: '&a'
+  defaultprefix: '[PREFIX]'
+  defaultsuffix: '[SUFFIX]'
+groups:
+  Owner:
+    chatformat: '%p&7%dn &2> &c%m'
+    join: '&4%dn has joined the game!'
+    leave: '&4%dn has left the game. :('
+    tabcolor: '&4'
+    prefix: '&4[Owner]'
+    suffix: '&c'
+players:
+  chaseoes:
+    join: '&cAn amazing person has joined the game!'
+    leave: '&4%dn has left the game.'
+    tabcolor: '&e'
