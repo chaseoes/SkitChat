@@ -1,31 +1,64 @@
+#######################################################
+## This is the default SkitChat configuration.       ##
+## SkitChat v0.6 by chaseoes.                        ##
+## http://dev.bukkit.org/server-mods/skitchat/       ##
+#######################################################
 settings:
-  logchatmessages: true
-  logpms: true
+  # Log chat messages to the console/server.log?
+  logchatmessages: false
+  # Log PM's to the console/server.log?
+  logpms: false
+  # Force players to move before being able to chat after logging in?
   forcemove: true
+  # Allow or disallow duplicate messages from being sent?
   nodupemessages: true
-  min-playercount: 5
-  chatdelay: 5
+  nodupecommands: false
+  # The min-amount of players needed online for spam-related settings to take effect.
+  min-playercount: 25
+  # The amount of time (in seconds) players should be forced to wait inbetween each message.
+  chatdelay: 3
+  # The amount of time (in seconds) players should be forced to wait when relogging.
   rejointime: 15
+  whitelistmessage: '&bThis server is whitelisted!'
+  disabledeathmessages: true
+  capspercent: 35
+  forcecapitalization: true
+  forcepunctuation: true
+  forcecapitalI: true
+  urls:
+    level: 1
+    exceptions:
+    - skitscape.com
 chat:
-  globalformat: '%p&7%dn &2> &8%m'
-  global-join: '&e%dn joined the game.'
-  global-leave: '&e%dn left the game.'
-  global-tabcolor: '&7%dn'
-  pm-from: '&8(FROM %n): &7%m'
-  pm-to: '&8(TO %n): &7%m'
-  spyformat: '&8(MSG %from -> %to): &7%m'
-  meformat: '%p%dn &f* %msg'
+  # The global format used to all chat messages.
+  globalformat: '%p %dn &2> &7%m'
+  # The global formats used for join/leave messages and player's names in the tab list.
+  global-join: '%s%dn &8/ &7Has logged in.'
+  global-leave: '%s%dn &8/ &7Has logged out.'
+  global-tabcolor: '%s%dn'
+  # The formats used to PM's and people spying on them.
+  pm-from: '&aFrom %s%dn &d> &a%m'
+  pm-to: '&dTo %s%dn &a> &d%m'
+  spyformat: '&7Spy: &a%from &2@ &d%to &8> &7%m'
+  # The format when using the /me command.
+  meformat: '* %dn &7%msg&f*'
+  # The color of the message shown to people who have friends added.
   friendcolor: '&a'
+  # The default/global prefixes and suffixes.
   defaultprefix: '[PREFIX]'
   defaultsuffix: '[SUFFIX]'
+# Define each of your groups here (not required). Per-player settings override those of groups, and those of groups
+# override the global formats. If settings for a player or group are not found, the global formats are used.
+# If you would like a specific setting to use the global format, just don't include it under the group name.
 groups:
   Owner:
-    chatformat: '%p&7%dn &2> &c%m'
-    join: '&4%dn has joined the game!'
-    leave: '&4%dn has left the game. :('
-    tabcolor: '&4'
-    prefix: '&4[Owner]'
-    suffix: '&c'
+    chatformat: '%p %dn &2> &c%m'
+    join: none
+    leave: none
+    tabcolor: '&4%dn'
+    prefix: none
+    suffix: none
+# Define custom players here.
 players:
   chaseoes:
     join: '&cAn amazing person has joined the game!'

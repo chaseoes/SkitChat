@@ -1,6 +1,6 @@
 name: SkitChat
 main: me.chaseoes.skitchat.SkitChat
-version: 0.4
+version: 0.8
 description: Add chat friends, ignore players, and more!
 author: chaseoes
 website: http://a1chase.com
@@ -31,11 +31,22 @@ commands:
     usage: /me <message>
   colors:
     description: List all default color codes.
-    usage: /me <message>
+    usage: /colors
+  reply:
+    description: Reply to a message.
+    usage: /r <message>
+    aliases: [r]
+  chatlist:
+    description: Reply to a message.
+    usage: /list
+    aliases: [lis]
 permissions:
   skitchat.override:
     description: Override the world!
     default: false
   skitchat.spamoverride:
     description: Override spam-related features!
+    default: false
+  skitchat.nopm:
+    description: No PM!?
     default: false
