@@ -1,6 +1,6 @@
 name: SkitChat
 main: me.chaseoes.skitchat.SkitChat
-version: 0.8
+version: 1.0.1
 description: Add chat friends, ignore players, and more!
 author: chaseoes
 website: http://a1chase.com
@@ -8,7 +8,7 @@ depend: [Vault]
 loadbefore: [Essentials]
 commands:
   chat:
-    description: The main command for FriendChatter.
+    description: The main command for SkitChat.
     usage: /chat <add|list|remove|ignore|ignorelist|unignore|pm|help|reload> [player]
   pm:
     description: Private message a player.
@@ -37,7 +37,7 @@ commands:
     usage: /r <message>
     aliases: [r]
   chatlist:
-    description: Reply to a message.
+    description: Online players.
     usage: /list
     aliases: [lis]
 permissions:
@@ -47,6 +47,18 @@ permissions:
   skitchat.spamoverride:
     description: Override spam-related features!
     default: false
+  skitchat.capsoverride:
+    description: Override caps!
+    default: false
   skitchat.nopm:
     description: No PM!?
+    default: false
+  skitchat.hidefriendadded:
+    description: Hide the friend added messages.
+    default: false
+  skitchat.hidejoinmessage:
+    description: Hide the friend added messages.
+    default: false
+  skitchat.hideleavemessage:
+    description: Hide the friend added messages.
     default: false
