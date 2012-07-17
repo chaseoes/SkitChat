@@ -10,8 +10,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import listeners.SkitChatListeners;
-import listeners.SpamListeners;
+import me.chaseoes.skitchat.listeners.SkitChatListeners;
+import me.chaseoes.skitchat.listeners.SpamListeners;
 import me.chaseoes.skitchat.utilities.Configuration;
 import me.chaseoes.skitchat.utilities.Formatter;
 import me.chaseoes.skitchat.utilities.Helper;
