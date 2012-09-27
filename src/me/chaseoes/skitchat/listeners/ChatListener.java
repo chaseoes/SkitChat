@@ -1,5 +1,6 @@
 package me.chaseoes.skitchat.listeners;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 import me.chaseoes.skitchat.SkitChat;
@@ -34,7 +35,7 @@ public class ChatListener implements Listener {
      * the console, etc.).
      */
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onPlayerChat(AsyncPlayerChatEvent event) {
+    public synchronized void onPlayerChat(AsyncPlayerChatEvent event) {
 
         // Tons of variables!
         event.setCancelled(true);
@@ -159,7 +160,7 @@ public class ChatListener implements Listener {
 
         // Loop through each player in the recipients list that other plugins can modify the players who recieve the message
         
-        for (Player players : event.getRecipients()) {
+        for (Player players : new HashSet<Player>(event.getRecipients())) {
             if (!player.hasPermission("skitchat.override")) {
                 if (!isIgnoring(players, player)) {
                     if (getFriendsOf(players).contains(name.toLowerCase())) { // If the online player has the sender as a friend..

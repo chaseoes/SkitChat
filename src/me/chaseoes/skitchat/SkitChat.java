@@ -75,7 +75,7 @@ public class SkitChat extends JavaPlugin {
         
         // Auto-Updater by h31ix
         if(Utilities.getInstance().plugin.getConfig().getBoolean("settings.updatecheck")) {
-            Updater updater = new Updater(this, "skitchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
+            //Updater updater = new Updater(this, "skitchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
         }
         
     }

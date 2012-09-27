@@ -11,6 +11,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener {
@@ -65,7 +66,7 @@ public class PlayerListener implements Listener {
         }
         String name = groupnameformat;
         if (name.length() > 16) {
-            name = name.substring(0, 14) + "..";
+            name = name.substring(0, 12) + "..";
             player.setPlayerListName(name);
         } else {
             player.setPlayerListName(name);
@@ -104,6 +105,11 @@ public class PlayerListener implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onPlayerKick(PlayerKickEvent event) {
+        event.setLeaveMessage(null);
     }
 
     @EventHandler
