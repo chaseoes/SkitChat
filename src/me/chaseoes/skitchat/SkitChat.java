@@ -645,6 +645,7 @@ public class SkitChat extends JavaPlugin {
                         if (strings.length > 2) {
                             if (!(target == null)) {
                                 if (!pmtoggled.contains(target.getName())) {
+                                    pmmsg = "";
                                     for (int i = 2; i < strings.length - 1; i++) {
                                         pmmsg += strings[i] + ' ';
                                     }
