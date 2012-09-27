@@ -7,7 +7,6 @@ import me.chaseoes.skitchat.utilities.Configuration;
 import me.chaseoes.skitchat.utilities.Formatter;
 import me.chaseoes.skitchat.utilities.PlayerData;
 import me.chaseoes.skitchat.utilities.Utilities;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -41,7 +40,6 @@ public class ChatListener implements Listener {
         event.setCancelled(true);
         Player player = event.getPlayer();
         String name = player.getName();
-        Player[] online = Bukkit.getOnlinePlayers();
         String groupformat = Configuration.getInstance().plugin.getConfig().getString("groups." + Utilities.getInstance().getGroup(player) + ".chatformat");
         String playerformat = Configuration.getInstance().plugin.getConfig().getString("players." + player.getName() + ".chatformat");
         String format;
@@ -159,8 +157,9 @@ public class ChatListener implements Listener {
             return;
         }
 
-        // Loop through each online player.
-        for (Player players : online) {
+        // Loop through each player in the recipients list that other plugins can modify the players who recieve the message
+        
+        for (Player players : event.getRecipients()) {
             if (!player.hasPermission("skitchat.override")) {
                 if (!isIgnoring(players, player)) {
                     if (getFriendsOf(players).contains(name.toLowerCase())) { // If the online player has the sender as a friend..
