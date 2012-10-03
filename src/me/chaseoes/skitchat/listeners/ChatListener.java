@@ -129,7 +129,7 @@ public class ChatListener implements Listener {
 
         // Log!
         if (Configuration.getInstance().plugin.getConfig().getBoolean("settings.logchatmessages")) {
-            log.info("[" + Configuration.getInstance().plugin.getDescription().getName() + "] [CHAT] " + event.getPlayer().getName() + ": " + message);
+            log.info("<" + event.getPlayer().getName() + "> " + message);
         }
 
         // Grab the format to use depending on the player's group.
