@@ -1,8 +1,10 @@
 package me.chaseoes.skitchat.utilities;
 
+import me.chaseoes.skitchat.ChatListener;
 import me.chaseoes.skitchat.SkitChat;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -53,13 +55,18 @@ public class Formatter {
 	public String chat(String format, String message, PlayerChatEvent event) {
 		Player player = event.getPlayer();
 		String group = Utilities.getInstance().getGroup(player);
-		String msg;
+		String msg = message;
 		if (player.hasPermission("skitchat.colors")) {
 			msg = Utilities.getInstance().colorize(message);
-		} else {
-			msg = message;
 		}
-		String newstring = Utilities.getInstance().colorize(format.replace("%n", player.getName()).replace("%p", Utilities.getInstance().getPrefix(player)).replace("%s", Utilities.getInstance().getSuffix(player)).replace("%dn", player.getDisplayName()).replace("%g", group));
+		String prefix = Utilities.getInstance().getPrefix(player);
+		if (ChatListener.emmc) {
+			if (message.startsWith("!")) {
+				msg = msg.replace("!", "");
+				prefix = "§7[§aShout§7] " + Utilities.getInstance().getPrefix(player);
+			}
+		}
+		String newstring = Utilities.getInstance().colorize(format.replace("%n", player.getName()).replace("%p", prefix).replace("%s", Utilities.getInstance().getSuffix(player)).replace("%dn", player.getDisplayName()).replace("%g", group));
 		String finalstr = newstring.replace("%m", msg);
 		return finalstr;
 	}

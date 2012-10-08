@@ -9,6 +9,7 @@ settings:
   logpms: true
   whitelistmessage: '&bThis server is whitelisted!'
   disabledeathmessages: false
+  disablefriends: false
   grammar:
     forcecapitalization: false
     forcepunctuation: false

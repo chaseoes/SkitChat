@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import me.chaseoes.skitchat.listeners.MoveListener;
 import me.chaseoes.skitchat.listeners.SkitChatListeners;
 import me.chaseoes.skitchat.listeners.SpamListeners;
 import me.chaseoes.skitchat.utilities.Configuration;
@@ -27,14 +27,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.massivecraft.factions.listeners.FactionsChatListener;
-
 public class SkitChat extends JavaPlugin {
 
-	public final Logger log = Logger.getLogger("Minecraft");
-	public final static Set<String> pming = new HashSet<String>();
-	public final static Set<String> toggled = new HashSet<String>();
-	public final static Set<String> pmtoggled = new HashSet<String>();
+	public Logger log = Logger.getLogger("Minecraft");
+	public static HashSet<String> pming = new HashSet<String>();
+	public static HashSet<String> toggled = new HashSet<String>();
+	public static HashSet<String> pmtoggled = new HashSet<String>();
 	public String finalfriends;
 	public String finalignored;
 	String msg = "";
@@ -44,6 +42,7 @@ public class SkitChat extends JavaPlugin {
 	Helper help = new Helper(this);
 	public Permission permission = null;
 	public Chat chat = null;
+	Boolean enablemove;
 
 	// Vault Chat Support
 	public boolean setupChat() {
@@ -72,7 +71,7 @@ public class SkitChat extends JavaPlugin {
 		} catch (Exception ex) {
 			getLogger().log(Level.SEVERE, "[" + getDescription().getName() + "] Could not load configuration!", ex);
 		}
-
+		enablemove = getConfig().getBoolean("settings.spam.forcemove");
 		Utilities.getInstance().setup(this);
 		Formatter.getInstance().setup(this);
 		Configuration.getInstance().setup(this);
@@ -80,20 +79,22 @@ public class SkitChat extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ChatListener(this), this);
 		getServer().getPluginManager().registerEvents(new SkitChatListeners(), this);
 		getServer().getPluginManager().registerEvents(new SpamListeners(this), this);
+		if (enablemove) {
+			getServer().getPluginManager().registerEvents(new MoveListener(), this);
+		}
 		setupChat();
 		setupPermissions();
 		Utilities.getInstance().blockDomains();
 		Utilities.getInstance().exceptions = getConfig().getStringList("settings.urls.exceptions");
-		log.info("[" + getDescription().getName() + "] Version " + getDescription().getVersion() + " by " + getDescription().getAuthors() + " sucessfully enabled.");
+		log.info("[" + getDescription().getName() + "] Version " + getDescription().getVersion() + " by chaseoes sucessfully enabled.");
 	}
 
 	public void onDisable() {
-		reloadConfig();
 		Configuration.getInstance().saveFriendsConfig();
 		Configuration.getInstance().saveIgnoresConfig();
 		Configuration.getInstance().savePlayerdataConfig();
 		saveConfig();
-		log.info("[" + getDescription().getName() + "] Version " + getDescription().getVersion() + " by " + getDescription().getAuthors() + " sucessfully disabled.");
+		log.info("[" + getDescription().getName() + "] Version " + getDescription().getVersion() + " by chaseoes sucessfully disabled.");
 	}
 
 	@Override

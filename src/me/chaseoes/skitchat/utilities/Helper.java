@@ -5,20 +5,20 @@ import me.chaseoes.skitchat.SkitChat;
 import org.bukkit.command.CommandSender;
 
 public class Helper {
-	  private SkitChat plugin;
-	  public Helper(SkitChat instance)
-	  {
-	    this.plugin = instance;
-	  }
-	
+	private SkitChat plugin;
+	public Helper(SkitChat instance)
+	{
+		this.plugin = instance;
+	}
+
 	public void needsHelp(CommandSender cs) {
 		cs.sendMessage("§cIncorrect command usage! Type §b/chat help §cfor help.");
 	}
-	
+
 	public void noPermission(CommandSender cs) {
 		cs.sendMessage("§cYou do not have permission to preform that action.");
 	}
-	
+
 	public void pluginInfo(CommandSender cs) {
 		cs.sendMessage("§b--------------- §6§l " + plugin.getDescription().getName() + " §r§6v" + plugin.getDescription().getVersion() + " §b---------------");
 		cs.sendMessage("§7Plugin developed by §9chaseoes§7.");

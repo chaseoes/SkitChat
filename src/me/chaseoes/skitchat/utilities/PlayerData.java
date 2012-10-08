@@ -1,7 +1,6 @@
 package me.chaseoes.skitchat.utilities;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import me.chaseoes.skitchat.SkitChat;
 
@@ -11,7 +10,7 @@ public class PlayerData {
 	@SuppressWarnings("unused")
 	private SkitChat plugin;
 	static PlayerData instance = new PlayerData();
-	public final static Set<String> moved = new HashSet<String>();
+	private HashSet<String> moved = new HashSet<String>();
     private PlayerData(){
 
     }
@@ -24,7 +23,6 @@ public class PlayerData {
    }
 	public void setPMTarget(Player player, Player target) {
 		Configuration.getInstance().getPlayerdataConfig().set("playerdata." + player.getName() + ".pmtarget", target.getName());
-		Configuration.getInstance().savePlayerdataConfig();
 	}
 	
 	public String getPMTarget(Player player) {
@@ -37,7 +35,6 @@ public class PlayerData {
 	
 	public void setLastPMFrom(Player player, Player target) {
 		Configuration.getInstance().getPlayerdataConfig().set("playerdata." + target.getName() + ".lastpmfrom", player.getName());
-		Configuration.getInstance().savePlayerdataConfig();
 	}
 	
 	public Boolean isSpying(Player player) {
@@ -49,7 +46,6 @@ public class PlayerData {
 	
 	public void setSpying(Player player, Boolean b) {
 		Configuration.getInstance().getPlayerdataConfig().set("playerdata." + player.getName() + ".spying", b);
-		Configuration.getInstance().savePlayerdataConfig();
 	}
 
 	public Boolean hasMoved(Player player) {
@@ -73,7 +69,6 @@ public class PlayerData {
 	
 	public void setLastMessageTime(Player player, Long l) {
 		Configuration.getInstance().getPlayerdataConfig().set("playerdata." + player.getName() + ".lastmsgtime", l);
-		Configuration.getInstance().savePlayerdataConfig();
 	}
 	
 	public String getLastMessage(Player player) {
@@ -82,7 +77,6 @@ public class PlayerData {
 	
 	public void setLastMessage(Player player, String message) {
 		Configuration.getInstance().getPlayerdataConfig().set("playerdata." + player.getName() + ".lastmsg", message);
-		Configuration.getInstance().savePlayerdataConfig();
 	}
 	
 	public Long getLastLeave(Player player) {
@@ -91,6 +85,5 @@ public class PlayerData {
 	
 	public void setLastLeave(Player player, Long l) {
 		Configuration.getInstance().getPlayerdataConfig().set("playerdata." + player.getName() + ".lastleave", l);
-		Configuration.getInstance().savePlayerdataConfig();
 	}
 }

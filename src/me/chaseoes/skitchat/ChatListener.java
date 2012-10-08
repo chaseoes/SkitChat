@@ -13,26 +13,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
-
-import com.massivecraft.factions.Faction;
 
 public class ChatListener implements Listener {
 	public final Logger log = Logger.getLogger("Minecraft");
 	public String message;
 	@SuppressWarnings("unused")
 	private SkitChat plugin;
+	public static Boolean emmc = true;
 	public ChatListener(SkitChat instance)
 	{
 		this.plugin = instance;
 	}
-
-	/* I realize that canceling the chat event altogether is a very bad way of doing this.
-	 * Unfortunately, due to what this plugin does, it's the only realistic way of doing things.
-	 * As a side effect, this will break support for almost every other plugin that modifies the chat.
-	 * In that sense, this plugin should be able to do anything plus more of any plugin that does modify the chat (this is a chat plugin, after all).
-	 * Canceling the event also gives much greater control over it (being able to not log chat to the console, etc.).
-	 */
 
 	@EventHandler(priority=EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onPlayerChat(PlayerChatEvent event) {
@@ -100,7 +93,7 @@ public class ChatListener implements Listener {
 		if (Configuration.getInstance().plugin.getConfig().getBoolean("settings.grammar.forcecapitalization") && !link) {
 			message = Utilities.getInstance().capitalizeFirstLetterOfEachSentence(message);
 		}
-		
+
 		if (Configuration.getInstance().plugin.getConfig().getBoolean("settings.spam.noextraspaces")) {
 			String regex = "\\s{2,}";
 			message = message.replaceAll(regex, " ");
@@ -119,9 +112,9 @@ public class ChatListener implements Listener {
 		}
 
 		if (!event.getPlayer().hasPermission("skitchat.capsoverride")) {
-		int percent = Configuration.getInstance().plugin.getConfig().getInt("settings.spam.capspercent");
-		double calc = capsCountt / msglength * 100.0D;
-		if (calc >= percent) {
+			int percent = Configuration.getInstance().plugin.getConfig().getInt("settings.spam.capspercent");
+			double calc = capsCountt / msglength * 100.0D;
+			if (calc >= percent) {
 				if (message.length() > Configuration.getInstance().plugin.getConfig().getInt("settings.caps-minchars")) {
 					if (!(message.equalsIgnoreCase(":D") || message.equalsIgnoreCase(":P") || message.equalsIgnoreCase(":(") || message.equalsIgnoreCase(":)") || message.equalsIgnoreCase("D:"))) {
 						message = message.toLowerCase();
@@ -147,6 +140,7 @@ public class ChatListener implements Listener {
 			friendformat = Formatter.getInstance().friend(Configuration.getInstance().plugin.getConfig().getString("chat.globalformat"), message, event);
 		}
 
+
 		// Private messaging!
 		if (SkitChat.pming.contains(name)) {
 			player.performCommand("chat pm " + PlayerData.getInstance().getPMTarget(player) + " " + message);
@@ -161,28 +155,48 @@ public class ChatListener implements Listener {
 			return;
 		}
 
-		// Loop through each online player.
-		for (Player players : online) {
-			if (!player.hasPermission("skitchat.override")) {
-				if (!isIgnoring(players, player)) {
-					if (getFriendsOf(players).contains(name.toLowerCase())) { // If the online player has the sender as a friend..
-						if (players.getName().equalsIgnoreCase(name)) {
-							player.sendMessage(format);
-						} else {
-							players.sendMessage(friendformat);
-						}
-					} else { // If the online player does not have the sender as a friend..
-						if (players.getName().equalsIgnoreCase(name)) { // If the player in question is the sender:
-							players.sendMessage(format); // Send them the message.
-						} else { // If the player in question isn't the sender:
-							if (!Utilities.getInstance().toggledOn(players)) { // If the player in question has their chat toggle OFF:
-								players.sendMessage(format); // Send them the message.
-							}
-						}
-					}
+		if (!emmc) {
+			// Loop through each online player.
+			if (Configuration.getInstance().plugin.getConfig().getBoolean("settings.disablefriends")) {
+				for (Player players : online) {
+					players.sendMessage(format);
 				}
 			} else {
-				players.sendMessage(format);
+				for (Player players : online) {
+					if (!player.hasPermission("skitchat.override")) {
+						if (!isIgnoring(players, player)) {
+							if (getFriendsOf(players).contains(name.toLowerCase())) { // If the online player has the sender as a friend..
+								if (players.getName().equalsIgnoreCase(name)) {
+									player.sendMessage(format);
+								} else {
+									players.sendMessage(friendformat);
+								}
+							} else { // If the online player does not have the sender as a friend..
+								if (players.getName().equalsIgnoreCase(name)) { // If the player in question is the sender:
+									players.sendMessage(format); // Send them the message.
+								} else { // If the player in question isn't the sender:
+									if (!Utilities.getInstance().toggledOn(players)) { // If the player in question has their chat toggle OFF:
+										players.sendMessage(format); // Send them the message.
+									}
+								}
+							}
+						}
+					} else {
+						players.sendMessage(format);
+					}
+				}
+			}
+
+		} else {
+			// Loop through each online player.
+			if (event.getMessage().startsWith("!")) {
+				plugin.getServer().broadcastMessage(format);
+			} else {
+				for (Player players : online) {
+					if (players.getWorld().getName().equalsIgnoreCase(event.getPlayer().getWorld().getName())) {
+						players.sendMessage(format);
+					}
+				}
 			}
 		}
 	}
@@ -190,6 +204,7 @@ public class ChatListener implements Listener {
 	public static boolean hasFriends(Player player) {
 		if (Configuration.getInstance().getFriendsConfig().getStringList("friends." + player.getName()) == null) {
 			return false; // Aww, no friends.
+
 		}
 		return true;
 	}
